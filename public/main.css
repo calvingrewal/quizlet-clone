@@ -1,0 +1,59 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,700);.bar-text {
+  display: flex;
+  justify-content: space-between; }
+
+.bar {
+  background-color: #f594a7;
+  opacity: .7;
+  border: 1px solid crimson;
+  height: 1em; }
+
+.bar-fill {
+  height: 100%;
+  width: 70%;
+  background-color: crimson; }
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 15rem;
+  background: #333;
+  padding: 1em; }
+.flashcard {
+  margin: 5rem 0 0 20rem;
+  width: 40rem;
+  padding: 3rem;
+  background-color: #fafafa; }
+  .flashcard h3 {
+    padding: 0 0 1.5em 0;
+    margin: 0;
+    font-size: 2em;
+    font-weight: 100;
+    border-bottom: 2px solid #ccc; }
+  .flashcard .answer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+    height: 2em; }
+    .flashcard .answer input {
+      margin-right: 10%;
+      width: 60%;
+      height: 100%; }
+    .flashcard .answer button {
+      width: 30%;
+      height: 100%; }
+  .flashcard small {
+    position: relative;
+    top: .3em; }
+h1 {
+  color: crimson; }
+* {
+  box-sizing: border-box; }
+
+body {
+  background-color: chartreuse;
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", Helvetica, sans-serif;
+  font-weight: 300; }
