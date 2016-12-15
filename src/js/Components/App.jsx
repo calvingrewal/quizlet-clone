@@ -7,8 +7,12 @@ import '../../css/App.sass'
 class App extends Component {
   constructor() {
     super()
+
+    this.handleAnswer = this.handleAnswer.bind(this)
+
     this.state = {
-      'vocab': [
+      numTerms: 4,
+      'remaining': [
         {
           'term': 'Georgia',
           'definition': 'Established as a buffer state'
@@ -25,16 +29,41 @@ class App extends Component {
           'term': 'Fundamental Orders',
           'definition': 'First modern constitution established in Connecticut'
         },
-      ]
+      ],
+
+      'incorrect': [],
+      'correct': []
+    }
+  }
+  handleAnswer(answer) {
+    const correctAnswer = this.state.remaining[0].definition.toLowerCase()
+    //User entered correct answer
+    if (answer.toLowerCase() === correctAnswer) {
+      //check if everything is correct
+      const newCorrect = this.state.correct.concat(this.state.remaining[0])
+      const newRemaining = this.state.remaining.slice(1)
+
+      this.setState({
+        correct: newCorrect,
+        remaining: newRemaining
+      })
+    } else {
+      const newIncorrect = this.state.incorrect.concat(this.state.remaining[0])
+      const newRemaining = this.state.remaining.slice(1)
+
+      this.setState({
+        incorrect: newIncorrect,
+        remaining: newRemaining
+      })
     }
   }
   render() {
+    console.log('STATEE', this.state)
     return (
       <main>
         <Sidebar />
-        <Flashcard vocab={this.state.vocab}/>
+        <Flashcard handleAnswer={this.handleAnswer} vocab={this.state.remaining}/>
       </main>
-
     );
   }
 }

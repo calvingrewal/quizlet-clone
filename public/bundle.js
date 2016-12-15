@@ -21515,8 +21515,11 @@
 
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
+	    _this.handleAnswer = _this.handleAnswer.bind(_this);
+
 	    _this.state = {
-	      'vocab': [{
+	      numTerms: 4,
+	      'remaining': [{
 	        'term': 'Georgia',
 	        'definition': 'Established as a buffer state'
 	      }, {
@@ -21528,19 +21531,47 @@
 	      }, {
 	        'term': 'Fundamental Orders',
 	        'definition': 'First modern constitution established in Connecticut'
-	      }]
+	      }],
+
+	      'incorrect': [],
+	      'correct': []
 	    };
 	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'handleAnswer',
+	    value: function handleAnswer(answer) {
+	      var correctAnswer = this.state.remaining[0].definition.toLowerCase();
+	      //User entered correct answer
+	      if (answer.toLowerCase() === correctAnswer) {
+	        //check if everything is correct
+	        var newCorrect = this.state.correct.concat(this.state.remaining[0]);
+	        var newRemaining = this.state.remaining.slice(1);
+
+	        this.setState({
+	          correct: newCorrect,
+	          remaining: newRemaining
+	        });
+	      } else {
+	        var newIncorrect = this.state.incorrect.concat(this.state.remaining[0]);
+	        var _newRemaining = this.state.remaining.slice(1);
+
+	        this.setState({
+	          incorrect: newIncorrect,
+	          remaining: _newRemaining
+	        });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      console.log('STATEE', this.state);
 	      return _react2.default.createElement(
 	        'main',
 	        null,
 	        _react2.default.createElement(_Sidebar2.default, null),
-	        _react2.default.createElement(_Flashcard2.default, { vocab: this.state.vocab })
+	        _react2.default.createElement(_Flashcard2.default, { handleAnswer: this.handleAnswer, vocab: this.state.remaining })
 	      );
 	    }
 	  }]);
@@ -21726,10 +21757,31 @@
 	  function Flashcard(props) {
 	    _classCallCheck(this, Flashcard);
 
-	    return _possibleConstructorReturn(this, (Flashcard.__proto__ || Object.getPrototypeOf(Flashcard)).call(this, props));
+	    var _this = _possibleConstructorReturn(this, (Flashcard.__proto__ || Object.getPrototypeOf(Flashcard)).call(this, props));
+
+	    _this.handleInput = _this.handleInput.bind(_this);
+	    _this.handleSubmit = _this.handleSubmit.bind(_this);
+
+	    _this.state = { inputValue: '' };
+	    return _this;
 	  }
 
 	  _createClass(Flashcard, [{
+	    key: 'handleInput',
+	    value: function handleInput(e) {
+	      this.setState({
+	        inputValue: e.target.value
+	      });
+	    }
+	  }, {
+	    key: 'handleSubmit',
+	    value: function handleSubmit() {
+	      this.props.handleAnswer(this.state.inputValue);
+	      this.setState({
+	        inputValue: ''
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21743,10 +21795,13 @@
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'answer' },
-	          _react2.default.createElement('input', { type: 'text' }),
+	          _react2.default.createElement('input', { type: 'text',
+	            value: this.state.inputValue,
+	            onChange: this.handleInput
+	          }),
 	          _react2.default.createElement(
 	            'button',
-	            null,
+	            { onClick: this.handleSubmit },
 	            'Answer'
 	          )
 	        ),
