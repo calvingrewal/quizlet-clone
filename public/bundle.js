@@ -58,8 +58,6 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(187);
-
 	function _interopRequireDefault(obj) {
 	  return obj && obj.__esModule ? obj : { default: obj };
 	}
@@ -21545,7 +21543,7 @@
 	      var correctAnswer = this.state.remaining[0].definition.toLowerCase();
 	      //User entered correct answer
 	      if (answer.toLowerCase() === correctAnswer) {
-	        //check if everything is correct
+	        //TODO: check if everything is correct
 	        var newCorrect = this.state.correct.concat(this.state.remaining[0]);
 	        var newRemaining = this.state.remaining.slice(1);
 
@@ -21566,12 +21564,19 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('STATEE', this.state);
 	      return _react2.default.createElement(
 	        'main',
 	        null,
-	        _react2.default.createElement(_Sidebar2.default, null),
-	        _react2.default.createElement(_Flashcard2.default, { handleAnswer: this.handleAnswer, vocab: this.state.remaining })
+	        _react2.default.createElement(_Sidebar2.default, {
+	          totalCards: this.state.numTerms,
+	          numRemaining: this.state.remaining.length,
+	          numCorrect: this.state.correct.length,
+	          numIncorrect: this.state.incorrect.length
+	        }),
+	        _react2.default.createElement(_Flashcard2.default, {
+	          handleAnswer: this.handleAnswer,
+	          vocab: this.state.remaining
+	        })
 	      );
 	    }
 	  }]);
@@ -21631,9 +21636,21 @@
 	          null,
 	          'Learn'
 	        ),
-	        _react2.default.createElement(_ProgressBar2.default, null),
-	        _react2.default.createElement(_ProgressBar2.default, null),
-	        _react2.default.createElement(_ProgressBar2.default, null)
+	        _react2.default.createElement(_ProgressBar2.default, {
+	          type: 'remaining',
+	          totalCards: this.props.totalCards,
+	          numCards: this.props.numRemaining
+	        }),
+	        _react2.default.createElement(_ProgressBar2.default, {
+	          type: 'correct',
+	          totalCards: this.props.totalCards,
+	          numCards: this.props.numCorrect
+	        }),
+	        _react2.default.createElement(_ProgressBar2.default, {
+	          type: 'incorrect',
+	          totalCards: this.props.totalCards,
+	          numCards: this.props.numIncorrect
+	        })
 	      );
 	    }
 	  }]);
@@ -21679,6 +21696,13 @@
 	  }
 
 	  _createClass(ProgressBar, [{
+	    key: 'getWidth',
+	    value: function getWidth() {
+	      return {
+	        'width': this.props.numCards / this.props.totalCards * 100 + '%'
+	      };
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
@@ -21686,8 +21710,8 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'bar' },
-	          _react2.default.createElement('div', { className: 'bar-fill' })
+	          { className: "bar " + this.props.type },
+	          _react2.default.createElement('div', { className: 'bar-fill', style: this.getWidth() })
 	        ),
 	        _react2.default.createElement(
 	          'div',
@@ -21695,12 +21719,12 @@
 	          _react2.default.createElement(
 	            'h4',
 	            null,
-	            'Remaining'
+	            this.props.type
 	          ),
 	          _react2.default.createElement(
 	            'h4',
 	            null,
-	            '30'
+	            this.props.numCards
 	          )
 	        )
 	      );
@@ -21827,12 +21851,6 @@
 
 /***/ },
 /* 186 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 187 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

@@ -7,9 +7,21 @@ class Sidebar extends Component {
     return (
       <div className='sidebar'>
         <h1>Learn</h1>
-        <ProgressBar />
-        <ProgressBar />
-        <ProgressBar />
+        <ProgressBar
+          type='remaining'
+          totalCards={this.props.totalCards}
+          numCards={this.props.numRemaining}
+        />
+        <ProgressBar
+          type='correct'
+          totalCards={this.props.totalCards}
+          numCards={this.props.numCorrect}
+        />
+        <ProgressBar
+          type='incorrect'
+          totalCards={this.props.totalCards}
+          numCards={this.props.numIncorrect}
+        />
       </div>
     )
   }

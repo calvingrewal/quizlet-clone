@@ -39,7 +39,7 @@ class App extends Component {
     const correctAnswer = this.state.remaining[0].definition.toLowerCase()
     //User entered correct answer
     if (answer.toLowerCase() === correctAnswer) {
-      //check if everything is correct
+      //TODO: check if everything is correct
       const newCorrect = this.state.correct.concat(this.state.remaining[0])
       const newRemaining = this.state.remaining.slice(1)
 
@@ -58,11 +58,18 @@ class App extends Component {
     }
   }
   render() {
-    console.log('STATEE', this.state)
     return (
       <main>
-        <Sidebar />
-        <Flashcard handleAnswer={this.handleAnswer} vocab={this.state.remaining}/>
+        <Sidebar
+          totalCards={this.state.numTerms}
+          numRemaining={this.state.remaining.length}
+          numCorrect={this.state.correct.length}
+          numIncorrect={this.state.incorrect.length}
+        />
+        <Flashcard
+          handleAnswer={this.handleAnswer}
+          vocab={this.state.remaining}
+        />
       </main>
     );
   }

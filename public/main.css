@@ -1,18 +1,36 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,700);.bar-text {
-  display: flex;
-  justify-content: space-between; }
-
-.bar {
-  background-color: #f594a7;
-  opacity: .7;
-  border: 1px solid crimson;
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,700);.bar {
   height: 1em; }
 
 .bar-fill {
   height: 100%;
-  width: 70%;
-  background-color: crimson; }
+  max-width: 100%;
+  -webkit-transition: all 0.15s ease-out 0s;
+  -moz-transition: all 0.15s ease-out 0s;
+  transition: all 0.15s ease-out 0s; }
+
+.bar-text {
+  display: flex;
+  justify-content: space-between; }
+  .bar-text h4 {
+    color: #fafafa;
+    text-transform: capitalize; }
+
+.remaining {
+  background-color: deepskyblue; }
+  .remaining .bar-fill {
+    background-color: #0099cc; }
+
+.correct {
+  background-color: #34ff66; }
+  .correct .bar-fill {
+    background-color: #00e639; }
+
+.incorrect {
+  background-color: #ff3455; }
+  .incorrect .bar-fill {
+    background-color: #e60026; }
 .sidebar {
+  font-weight: 100;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -20,11 +38,13 @@
   width: 15rem;
   background: #333;
   padding: 1em; }
+  .sidebar h1 {
+    color: #fcfcfc; }
 .flashcard {
   margin: 5rem 0 0 20rem;
   width: 40rem;
   padding: 3rem;
-  background-color: #fafafa; }
+  background-color: #fff; }
   .flashcard h3 {
     padding: 0 0 1.5em 0;
     margin: 0;
@@ -46,14 +66,15 @@
   .flashcard small {
     position: relative;
     top: .3em; }
-h1 {
-  color: crimson; }
 * {
   box-sizing: border-box; }
 
 body {
-  background-color: chartreuse;
+  background-color: #ddd;
   margin: 0;
   padding: 0;
   font-family: "Roboto", Helvetica, sans-serif;
   font-weight: 300; }
+
+h1, h2, h3, h4 {
+  font-weight: 100; }

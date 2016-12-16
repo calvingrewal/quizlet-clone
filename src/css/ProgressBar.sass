@@ -1,12 +1,31 @@
+@import 'bourbon/bourbon'
+
+.bar
+  height: 1em
+
+.bar-fill
+  height: 100%
+  max-width: 100%
+  +transition()
+
 .bar-text
   display: flex
   justify-content: space-between
-.bar
-  background-color: lighten(crimson, 30%)
-  opacity: .7
-  border: 1px solid crimson
-  height: 1em
-.bar-fill
-  height: 100%
-  width: 70%
-  background-color: crimson
+  h4
+    color: #fafafa
+    text-transform: capitalize
+
+.remaining
+  background-color: lighten(#0099cc, 10%)
+  .bar-fill
+    background-color: #0099cc
+
+.correct
+  background-color: lighten(#00e639, 15%)
+  .bar-fill
+    background-color: #00e639
+
+.incorrect
+  background-color: lighten(#e60026, 15%)
+  .bar-fill
+    background-color: #e60026
