@@ -32,7 +32,7 @@
 
 .progress-bar {
   width: 100%; }
-  @media (max-width: 66em) {
+  @media (max-width: 48em) {
     .progress-bar {
       width: 30%; } }
 .sidebar {
@@ -50,7 +50,8 @@
     .sidebar {
       display: flex;
       justify-content: space-between;
-      width: 90vw; }
+      width: 86vw;
+      margin-top: 2em; }
       .sidebar .progress:not(:last-child) {
         margin-right: 1em; }
       .sidebar h1 {
@@ -85,8 +86,11 @@
       width: 50%; }
       .flashcard .answer {
         display: inline-block;
-        margin: 0 2em;
-        height: 5em; }
+        margin: 2em 0;
+        height: 5em;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%); }
         .flashcard .answer input, .flashcard .answer button {
           display: inline-block;
           width: 100%;
@@ -100,7 +104,7 @@
         color: pink; } }
   @media (max-width: 48em) {
     .flashcard {
-      width: 90vw; } }
+      width: 86vw; } }
 * {
   box-sizing: border-box; }
 
@@ -126,4 +130,4 @@ h1, h2, h3, h4 {
     .main {
       display: block;
       margin: 0;
-      margin-left: 5vw; } }
+      margin-left: 7vw; } }

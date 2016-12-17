@@ -1,3 +1,5 @@
+@import '../../node_modules/bourbon/app/assets/stylesheets/bourbon'
+
 .flashcard
   //15em for sidebar clearance, 2em for appearance
   //margin: 2em 0 0 20em
@@ -33,10 +35,14 @@
   @media(max-width: 66em)
 
     width: 50%
+
     .answer
       display: inline-block
-      margin: 0 2em
+      margin: 2em 0
       height: 5em
+
+      +position(relative, null null null 50%)
+      transform: translateX(-50%)
 
       input, button
         display: inline-block
@@ -51,4 +57,4 @@
       color: pink
 
   @media(max-width: 48em)
-    width: 90vw
+    width: 86vw
