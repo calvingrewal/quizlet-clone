@@ -12,7 +12,7 @@ class ProgressBar extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='progress-bar'>
         <div className={"bar " + this.props.type}>
           <div className="bar-fill" style={this.getWidth()}></div>
         </div>

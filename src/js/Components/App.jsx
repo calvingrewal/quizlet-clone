@@ -59,7 +59,7 @@ class App extends Component {
   }
   render() {
     return (
-      <main>
+      <main className='main'>
         <Sidebar
           totalCards={this.state.numTerms}
           numRemaining={this.state.remaining.length}

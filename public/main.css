@@ -29,21 +29,35 @@
   background-color: #ff3455; }
   .incorrect .bar-fill {
     background-color: #e60026; }
+
+.progress-bar {
+  width: 100%; }
+  @media (max-width: 66em) {
+    .progress-bar {
+      width: 30%; } }
 .sidebar {
-  font-weight: 100;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 15rem;
+  width: 15em;
   background: #333;
-  padding: 1em; }
+  font-weight: 100;
+  padding: 1em;
+  margin-right: 6em; }
   .sidebar h1 {
     color: #fcfcfc; }
+  @media (max-width: 66em) {
+    .sidebar {
+      margin-right: 3em; } }
+  @media (max-width: 48em) {
+    .sidebar {
+      display: flex;
+      justify-content: space-between;
+      width: 90vw; }
+      .sidebar .progress:not(:last-child) {
+        margin-right: 1em; }
+      .sidebar h1 {
+        display: none; } }
 .flashcard {
-  margin: 5rem 0 0 20rem;
-  width: 40rem;
-  padding: 3rem;
+  width: 40em;
+  padding: 3em;
   background-color: #fff; }
   .flashcard h3 {
     padding: 0 0 1.5em 0;
@@ -66,6 +80,27 @@
   .flashcard small {
     position: relative;
     top: .3em; }
+  @media (max-width: 66em) {
+    .flashcard {
+      width: 50%; }
+      .flashcard .answer {
+        display: inline-block;
+        margin: 0 2em;
+        height: 5em; }
+        .flashcard .answer input, .flashcard .answer button {
+          display: inline-block;
+          width: 100%;
+          margin: .7em 1em 0 1em;
+          height: auto;
+          padding: 1.2em; }
+        .flashcard .answer input {
+          padding: .8em; }
+      .flashcard small {
+        display: none;
+        color: pink; } }
+  @media (max-width: 48em) {
+    .flashcard {
+      width: 90vw; } }
 * {
   box-sizing: border-box; }
 
@@ -78,3 +113,17 @@ body {
 
 h1, h2, h3, h4 {
   font-weight: 100; }
+
+.main {
+  width: 65em;
+  margin: 2em auto;
+  display: flex;
+  justify-content: center; }
+  @media (max-width: 66em) {
+    .main {
+      width: 48em; } }
+  @media (max-width: 48em) {
+    .main {
+      display: block;
+      margin: 0;
+      margin-left: 5vw; } }

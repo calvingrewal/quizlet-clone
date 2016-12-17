@@ -1,10 +1,27 @@
 @import '../../node_modules/bourbon/app/assets/stylesheets/bourbon'
 
 .sidebar
-  font-weight: 100
-  +position(fixed, 0 null 0 0)
-  width: 15rem
+  width: 15em
   background: #333
+  font-weight: 100
+
   padding: 1em
+  //fmargin: 2em 3em
+
+  margin-right: 6em
+
   h1
     color: #fcfcfc
+
+  @media(max-width: 66em)
+    margin-right: 3em
+
+  @media(max-width: 48em)
+    display: flex
+    justify-content: space-between
+    width: 90vw
+
+    .progress:not(:last-child)
+      margin-right: 1em
+    h1
+      display: none

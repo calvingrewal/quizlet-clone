@@ -1,8 +1,8 @@
 .flashcard
-  //15rem for sidebar clearance, 5rem for appearance
-  margin: 5rem 0 0 20rem
-  width: 40rem
-  padding: 3rem
+  //15em for sidebar clearance, 2em for appearance
+  //margin: 2em 0 0 20em
+  width: 40em
+  padding: 3em
   background-color: #fff
 
   h3
@@ -29,3 +29,26 @@
   small
     position: relative
     top: .3em
+
+  @media(max-width: 66em)
+
+    width: 50%
+    .answer
+      display: inline-block
+      margin: 0 2em
+      height: 5em
+
+      input, button
+        display: inline-block
+        width: 100%
+        margin: .7em 1em 0 1em
+        height: auto
+        padding: 1.2em
+      input
+        padding: .8em
+    small
+      display: none
+      color: pink
+
+  @media(max-width: 48em)
+    width: 90vw

@@ -21566,7 +21566,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'main',
-	        null,
+	        { className: 'main' },
 	        _react2.default.createElement(_Sidebar2.default, {
 	          totalCards: this.state.numTerms,
 	          numRemaining: this.state.remaining.length,
@@ -21707,7 +21707,7 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
+	        { className: 'progress-bar' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: "bar " + this.props.type },
