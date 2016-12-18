@@ -21495,7 +21495,15 @@
 
 	var _Flashcard2 = _interopRequireDefault(_Flashcard);
 
-	__webpack_require__(186);
+	var _Message = __webpack_require__(186);
+
+	var _Message2 = _interopRequireDefault(_Message);
+
+	var _flashcards = __webpack_require__(188);
+
+	var _flashcards2 = _interopRequireDefault(_flashcards);
+
+	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21514,56 +21522,105 @@
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
 
 	    _this.handleAnswer = _this.handleAnswer.bind(_this);
+	    _this.restart = _this.restart.bind(_this);
 
-	    _this.state = {
-	      numTerms: 4,
-	      'remaining': [{
-	        'term': 'Georgia',
-	        'definition': 'Established as a buffer state'
-	      }, {
-	        'term': 'Iraquois Confederation',
-	        'definition': 'Largest Native American confederation'
-	      }, {
-	        'term': 'Puritans',
-	        'definition': 'Wanted to purify the Church of England'
-	      }, {
-	        'term': 'Fundamental Orders',
-	        'definition': 'First modern constitution established in Connecticut'
-	      }],
-
-	      'incorrect': [],
-	      'correct': []
-	    };
+	    _this.state = _this.generateInitialState('MATH');
 	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'generateInitialState',
+	    value: function generateInitialState(type) {
+	      var flashcards = _flashcards2.default[type];
+	      return {
+	        type: type,
+	        numTerms: flashcards.length,
+	        'remaining': flashcards,
+	        'incorrect': [],
+	        'correct': [],
+	        'gameCompleted': false,
+	        'message': null
+	      };
+	    }
+	  }, {
 	    key: 'handleAnswer',
 	    value: function handleAnswer(answer) {
-	      var correctAnswer = this.state.remaining[0].definition.toLowerCase();
-	      //User entered correct answer
+	      var _state = this.state,
+	          remaining = _state.remaining,
+	          correct = _state.correct,
+	          incorrect = _state.incorrect,
+	          numTerms = _state.numTerms;
+
+
+	      var correctAnswer = remaining[0].definition.toLowerCase();
+
+	      var newRemaining = remaining;
+	      var newCorrect = correct;
+	      var newIncorrect = incorrect;
+
 	      if (answer.toLowerCase() === correctAnswer) {
-	        //TODO: check if everything is correct
-	        var newCorrect = this.state.correct.concat(this.state.remaining[0]);
-	        var newRemaining = this.state.remaining.slice(1);
-
-	        this.setState({
-	          correct: newCorrect,
-	          remaining: newRemaining
-	        });
+	        newCorrect = correct.concat(this.state.remaining[0]);
 	      } else {
-	        var newIncorrect = this.state.incorrect.concat(this.state.remaining[0]);
-	        var _newRemaining = this.state.remaining.slice(1);
+	        newIncorrect = incorrect.concat(this.state.remaining[0]);
+	      }
+	      if (remaining.length === 1) {
 
+	        if (newCorrect.length === numTerms) {
+	          console.log('EVERYTHING RIGHTT');
+	          this.state.gameCompleted = true;
+	          this.state.message = 'You got everything right!';
+	        }
+	        //add incorrect to remaining and display some UX indicator
+
+	        console.log('set STATTEEE');
+	        var numCorrect = newCorrect.length;
+	        var message = 'You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct';
 	        this.setState({
-	          incorrect: newIncorrect,
-	          remaining: _newRemaining
+	          'remaining': newIncorrect,
+	          'correct': newCorrect,
+	          'incorrect': [],
+	          message: message
+	        });
+
+	        return;
+	      } else {
+	        newRemaining = remaining.slice(1);
+	        this.setState({
+	          remaining: newRemaining,
+	          correct: newCorrect,
+	          incorrect: newIncorrect
 	        });
 	      }
+	      console.log('answer handlled');
+	    }
+	  }, {
+	    key: 'restart',
+	    value: function restart() {
+	      var newGame = this.state.correct.length == this.state.numTerms;
+
+	      return newGame ? this.setState(this.generateInitialState(this.state.type)) : this.setState({ message: null });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      if (this.state.message) {
+	        var type = this.state.gameCompleted ? 'restart' : 'continue';
+	        return _react2.default.createElement(
+	          'main',
+	          { className: 'main' },
+	          _react2.default.createElement(_Sidebar2.default, {
+	            totalCards: this.state.numTerms,
+	            numRemaining: this.state.remaining.length,
+	            numCorrect: this.state.correct.length,
+	            numIncorrect: this.state.incorrect.length
+	          }),
+	          _react2.default.createElement(_Message2.default, {
+	            message: this.state.message,
+	            handleClick: this.restart,
+	            type: type
+	          })
+	        );
+	      }
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'main' },
@@ -21825,7 +21882,7 @@
 	          }),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.handleSubmit },
+	            { className: 'btn', onClick: this.handleSubmit },
 	            'Answer'
 	          )
 	        ),
@@ -21851,6 +21908,108 @@
 
 /***/ },
 /* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(187);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Message = function (_Component) {
+	  _inherits(Message, _Component);
+
+	  function Message() {
+	    _classCallCheck(this, Message);
+
+	    return _possibleConstructorReturn(this, (Message.__proto__ || Object.getPrototypeOf(Message)).apply(this, arguments));
+	  }
+
+	  _createClass(Message, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'flashcard message' },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          this.props.message
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn', onClick: this.props.handleClick },
+	          'Click to ',
+	          this.props.type
+	        )
+	      );
+	    }
+	  }]);
+
+	  return Message;
+	}(_react.Component);
+
+	exports.default = Message;
+
+/***/ },
+/* 187 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 188 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = {
+	  'US_HISTORY': [{
+	    'term': 'Georgia',
+	    'definition': 'Established as a buffer state'
+	  }, {
+	    'term': 'Iraquois Confederation',
+	    'definition': 'Largest Native American confederation'
+	  }, {
+	    'term': 'Puritans',
+	    'definition': 'Wanted to purify the Church of England'
+	  }, {
+	    'term': 'Fundamental Orders',
+	    'definition': 'First modern constitution established in Connecticut'
+	  }],
+	  'MATH': [{
+	    'term': '1 + 1 = ?',
+	    'definition': '2'
+	  }, {
+	    'term': '8 * 3 = ?',
+	    'definition': '24'
+	  }, {
+	    'term': '28 / 7 = ?',
+	    'definition': '4'
+	  }, {
+	    'term': '13 - 8 = ?',
+	    'definition': '5'
+	  }]
+	};
+
+/***/ },
+/* 189 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

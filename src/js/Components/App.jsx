@@ -26,6 +26,7 @@ class App extends Component {
       'remaining': flashcards,
       'incorrect': [],
       'correct': [],
+      'gameCompleted': false,
       'message': null
     }
 
@@ -39,8 +40,6 @@ class App extends Component {
     let newCorrect = correct
     let newIncorrect = incorrect
 
-
-
     if (answer.toLowerCase() === correctAnswer) {
       newCorrect = correct.concat(this.state.remaining[0])
     } else {
@@ -50,13 +49,14 @@ class App extends Component {
 
       if (newCorrect.length === numTerms) {
         console.log('EVERYTHING RIGHTT')
+        this.state.gameCompleted = true
         this.state.message = 'You got everything right!'
       }
         //add incorrect to remaining and display some UX indicator
 
       console.log('set STATTEEE')
       const numCorrect = newCorrect.length
-      const message = 'You got have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct'
+      const message = 'You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct'
       this.setState({
         'remaining': newIncorrect,
         'correct': newCorrect,
@@ -77,6 +77,7 @@ class App extends Component {
   }
   restart() {
     const newGame = this.state.correct.length == this.state.numTerms
+
     return newGame ?
       this.setState(this.generateInitialState(this.state.type))
       :
@@ -85,6 +86,7 @@ class App extends Component {
 
   render() {
     if (this.state.message) {
+      const type = this.state.gameCompleted ? 'restart' : 'continue'
       return (
         <main className="main">
           <Sidebar
@@ -96,6 +98,7 @@ class App extends Component {
           <Message
             message={this.state.message}
             handleClick={this.restart}
+            type={type}
           />
         </main>
       )

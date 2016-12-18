@@ -25,9 +25,27 @@
       margin-right: 10%
       width: 60%
       height: 100%
-    button
-      width: 30%
-      height: 100%
+  .btn
+    margin: 1rem
+    padding: .75em 2em
+
+    color: #eee
+
+    background-color: #0099cc
+    border: 2px solid #0099cc
+    outline: none
+
+    font-size: 1em
+    cursor: pointer
+    border-radius: 2px
+
+    +transition()
+
+    &:hover
+      background-color: #fff
+      color: #0099cc
+    &:focus
+      outline:none
   small
     position: relative
     top: .3em
@@ -44,12 +62,12 @@
       +position(relative, null null null 50%)
       transform: translateX(-50%)
 
-      input, button
+      input, .btn
         display: inline-block
         width: 100%
-        margin: .7em 1em 0 1em
+        margin: .7em 1em 0 0
         height: auto
-        padding: 1.2em
+
       input
         padding: .8em
     small

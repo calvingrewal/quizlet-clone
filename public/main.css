@@ -75,9 +75,22 @@
       margin-right: 10%;
       width: 60%;
       height: 100%; }
-    .flashcard .answer button {
-      width: 30%;
-      height: 100%; }
+  .flashcard .btn {
+    margin: 1rem;
+    padding: .75em 2em;
+    color: #eee;
+    background-color: #0099cc;
+    border: 2px solid #0099cc;
+    outline: none;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 2px;
+    -webkit-transition: all 0.15s ease-out 0s;
+    -moz-transition: all 0.15s ease-out 0s;
+    transition: all 0.15s ease-out 0s; }
+    .flashcard .btn:hover {
+      background-color: #fff;
+      color: #0099cc; }
   .flashcard small {
     position: relative;
     top: .3em; }
@@ -91,12 +104,11 @@
         position: relative;
         left: 50%;
         transform: translateX(-50%); }
-        .flashcard .answer input, .flashcard .answer button {
+        .flashcard .answer input, .flashcard .answer .btn {
           display: inline-block;
           width: 100%;
-          margin: .7em 1em 0 1em;
-          height: auto;
-          padding: 1.2em; }
+          margin: .7em 1em 0 0;
+          height: auto; }
         .flashcard .answer input {
           padding: .8em; }
       .flashcard small {
@@ -105,6 +117,13 @@
   @media (max-width: 48em) {
     .flashcard {
       width: 100vw; } }
+.message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center; }
+  .message p {
+    font-size: 1.2em; }
 * {
   box-sizing: border-box; }
 

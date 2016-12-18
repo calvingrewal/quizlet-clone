@@ -30,7 +30,7 @@ class Flashcard extends Component {
             value={this.state.inputValue}
             onChange={this.handleInput}
           />
-        <button onClick={this.handleSubmit}>Answer</button>
+        <button className='btn' onClick={this.handleSubmit}>Answer</button>
         </div>
         <small>Type the answer</small>
 

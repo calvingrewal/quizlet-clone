@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 
+import '../../css/Message.sass'
+
 class Message extends Component {
 
   render() {
     return (
-      <div className="complete">
+      <div className="flashcard message">
         <p>{this.props.message}</p>
-        <button onClick={this.props.handleClick}>Click to restart</button>
+        <button className='btn' onClick={this.props.handleClick}>Click to {this.props.type}</button>
       </div>
     )
   }
