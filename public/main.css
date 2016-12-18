@@ -48,10 +48,10 @@
       margin-right: 3em; } }
   @media (max-width: 48em) {
     .sidebar {
-      display: flex;
+      display: inline-flex;
       justify-content: space-between;
-      width: 86vw;
-      margin-top: 2em; }
+      width: 100vw;
+      margin: 0; }
       .sidebar .progress:not(:last-child) {
         margin-right: 1em; }
       .sidebar h1 {
@@ -104,7 +104,7 @@
         color: pink; } }
   @media (max-width: 48em) {
     .flashcard {
-      width: 86vw; } }
+      width: 100vw; } }
 * {
   box-sizing: border-box; }
 
@@ -130,4 +130,4 @@ h1, h2, h3, h4 {
     .main {
       display: block;
       margin: 0;
-      margin-left: 7vw; } }
+      width: 100vw; } }
