@@ -21539,7 +21539,7 @@
 	        'incorrect': [],
 	        'correct': [],
 	        'gameCompleted': false,
-	        'message': null
+	        'messages': []
 	      };
 	    }
 	  }, {
@@ -21558,28 +21558,30 @@
 	      var newCorrect = correct;
 	      var newIncorrect = incorrect;
 
+	      var messages = [];
+
 	      if (answer.toLowerCase() === correctAnswer) {
 	        newCorrect = correct.concat(this.state.remaining[0]);
 	      } else {
 	        newIncorrect = incorrect.concat(this.state.remaining[0]);
+	        //the * is used in the Message component to detect if there are multiple messages
+	        messages.push('The correct answer is actually ' + this.state.remaining[0].definition);
 	      }
 	      if (remaining.length === 1) {
 
 	        if (newCorrect.length === numTerms) {
 	          console.log('EVERYTHING RIGHTT');
 	          this.state.gameCompleted = true;
-	          this.state.message = 'You got everything right!';
 	        }
 	        //add incorrect to remaining and display some UX indicator
 
-	        console.log('set STATTEEE');
 	        var numCorrect = newCorrect.length;
-	        var message = 'You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct';
+	        messages.push('You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct');
 	        this.setState({
 	          'remaining': newIncorrect,
 	          'correct': newCorrect,
 	          'incorrect': [],
-	          message: message
+	          messages: messages
 	        });
 
 	        return;
@@ -21588,7 +21590,8 @@
 	        this.setState({
 	          remaining: newRemaining,
 	          correct: newCorrect,
-	          incorrect: newIncorrect
+	          incorrect: newIncorrect,
+	          messages: messages
 	        });
 	      }
 	      console.log('answer handlled');
@@ -21598,13 +21601,22 @@
 	    value: function restart() {
 	      var newGame = this.state.correct.length == this.state.numTerms;
 
-	      return newGame ? this.setState(this.generateInitialState(this.state.type)) : this.setState({ message: null });
+	      return newGame ? this.setState(this.generateInitialState(this.state.type)) : this.setState({ messages: [] });
+	    }
+	  }, {
+	    key: 'getType',
+	    value: function getType() {
+	      console.log(this.state.remaining.length);
+	      if (this.state.gameCompleted) return 'restart';
+	      if (this.state.remaining.length === this.state.numTerms) return 'continue to next round';
+	      return 'continue';
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.state.message) {
-	        var type = this.state.gameCompleted ? 'restart' : 'continue';
+	      if (this.state.messages.length) {
+	        //const type = this.state.gameCompleted ? 'restart' : 'continue'
+	        var type = this.getType();
 	        return _react2.default.createElement(
 	          'main',
 	          { className: 'main' },
@@ -21615,7 +21627,7 @@
 	            numIncorrect: this.state.incorrect.length
 	          }),
 	          _react2.default.createElement(_Message2.default, {
-	            message: this.state.message,
+	            messages: this.state.messages,
 	            handleClick: this.restart,
 	            type: type
 	          })
@@ -21944,14 +21956,17 @@
 	  _createClass(Message, [{
 	    key: 'render',
 	    value: function render() {
+	      var createMessages = function createMessages(message, i) {
+	        return _react2.default.createElement(
+	          'p',
+	          { key: i },
+	          message
+	        );
+	      };
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'flashcard message' },
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          this.props.message
-	        ),
+	        this.props.messages.map(createMessages),
 	        _react2.default.createElement(
 	          'button',
 	          { className: 'btn', onClick: this.props.handleClick },

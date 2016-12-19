@@ -27,7 +27,7 @@ class App extends Component {
       'incorrect': [],
       'correct': [],
       'gameCompleted': false,
-      'message': null
+      'messages': []
     }
 
   }
@@ -40,28 +40,31 @@ class App extends Component {
     let newCorrect = correct
     let newIncorrect = incorrect
 
+    let messages = []
+
     if (answer.toLowerCase() === correctAnswer) {
       newCorrect = correct.concat(this.state.remaining[0])
     } else {
       newIncorrect = incorrect.concat(this.state.remaining[0])
+      //the * is used in the Message component to detect if there are multiple messages
+      messages.push('The correct answer is actually ' + this.state.remaining[0].definition)
     }
     if (remaining.length === 1) {
 
       if (newCorrect.length === numTerms) {
         console.log('EVERYTHING RIGHTT')
         this.state.gameCompleted = true
-        this.state.message = 'You got everything right!'
+
       }
         //add incorrect to remaining and display some UX indicator
 
-      console.log('set STATTEEE')
       const numCorrect = newCorrect.length
-      const message = 'You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct'
+      messages.push('You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct')
       this.setState({
         'remaining': newIncorrect,
         'correct': newCorrect,
         'incorrect': [],
-        message
+        messages
       })
 
       return
@@ -70,7 +73,8 @@ class App extends Component {
       this.setState({
         remaining: newRemaining,
         correct: newCorrect,
-        incorrect: newIncorrect
+        incorrect: newIncorrect,
+        messages
       })
     }
     console.log('answer handlled')
@@ -81,12 +85,18 @@ class App extends Component {
     return newGame ?
       this.setState(this.generateInitialState(this.state.type))
       :
-      this.setState({message:null})
+      this.setState({messages:[]})
   }
-
+  getType() {
+    console.log(this.state.remaining.length)
+    if (this.state.gameCompleted) return 'restart'
+    if (this.state.remaining.length === this.state.numTerms) return 'continue to next round'
+    return 'continue'
+  }
   render() {
-    if (this.state.message) {
-      const type = this.state.gameCompleted ? 'restart' : 'continue'
+    if (this.state.messages.length) {
+      //const type = this.state.gameCompleted ? 'restart' : 'continue'
+      const type = this.getType()
       return (
         <main className="main">
           <Sidebar
@@ -96,7 +106,7 @@ class App extends Component {
             numIncorrect={this.state.incorrect.length}
           />
           <Message
-            message={this.state.message}
+            messages={this.state.messages}
             handleClick={this.restart}
             type={type}
           />
