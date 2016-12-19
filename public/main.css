@@ -69,12 +69,18 @@
   .flashcard .answer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-top: 2em;
     height: 2em; }
     .flashcard .answer input {
       margin-right: 10%;
       width: 60%;
       height: 100%; }
+    .flashcard .answer .btn {
+      width: 30%;
+      height: 120%;
+      margin: 0;
+      padding: 0; }
   .flashcard .btn {
     margin: 1rem;
     padding: .75em 2em;
@@ -82,7 +88,7 @@
     background-color: #0099cc;
     border: 2px solid #0099cc;
     outline: none;
-    font-size: 1em;
+    font-size: .9em;
     cursor: pointer;
     border-radius: 2px;
     -webkit-transition: all 0.15s ease-out 0s;
@@ -108,7 +114,8 @@
           display: inline-block;
           width: 100%;
           margin: .7em 1em 0 0;
-          height: auto; }
+          height: auto;
+          padding: .75em 2em; }
         .flashcard .answer input {
           padding: .8em; }
       .flashcard small {
