@@ -14,6 +14,14 @@
   .bar-text h4 {
     color: #fafafa;
     text-transform: capitalize; }
+  @media (max-width: 48em) {
+    .bar-text {
+      justify-content: center; }
+      .bar-text h4 {
+        font-size: .7em; }
+        .bar-text h4:last-child {
+          order: -1;
+          margin-right: .4em; } }
 
 .remaining {
   background-color: deepskyblue; }
@@ -113,8 +121,8 @@
         .flashcard .answer input, .flashcard .answer .btn {
           display: inline-block;
           width: 100%;
-          margin: .7em 1em 0 0;
           height: auto;
+          margin: .7em 1em 0 0;
           padding: .75em 2em; }
         .flashcard .answer input {
           padding: .8em; }

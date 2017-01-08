@@ -13,6 +13,13 @@
   h4
     color: #fafafa
     text-transform: capitalize
+  @media(max-width: 48em)
+    justify-content: center
+    h4
+      font-size: .7em
+      &:last-child
+        order: -1
+        margin-right: .4em
 
 .remaining
   background-color: lighten(#0099cc, 10%)
