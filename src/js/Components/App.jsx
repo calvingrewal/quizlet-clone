@@ -52,11 +52,10 @@ class App extends Component {
     if (remaining.length === 1) {
 
       if (newCorrect.length === numTerms) {
-        console.log('EVERYTHING RIGHTT')
+
         this.state.gameCompleted = true
 
       }
-        //add incorrect to remaining and display some UX indicator
 
       const numCorrect = newCorrect.length
       messages.push('You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct')
@@ -77,7 +76,7 @@ class App extends Component {
         messages
       })
     }
-    console.log('answer handlled')
+
   }
   restart() {
     const newGame = this.state.correct.length == this.state.numTerms
@@ -88,45 +87,35 @@ class App extends Component {
       this.setState({messages:[]})
   }
   getType() {
-    console.log(this.state.remaining.length)
+
     if (this.state.gameCompleted) return 'restart'
     if (this.state.remaining.length === this.state.numTerms) return 'continue to next round'
     return 'continue'
   }
   render() {
-    if (this.state.messages.length) {
-      //const type = this.state.gameCompleted ? 'restart' : 'continue'
-      const type = this.getType()
-      return (
-        <main className="main">
-          <Sidebar
-            totalCards={this.state.numTerms}
-            numRemaining={this.state.remaining.length}
-            numCorrect={this.state.correct.length}
-            numIncorrect={this.state.incorrect.length}
-          />
-          <Message
-            messages={this.state.messages}
-            handleClick={this.restart}
-            type={type}
-          />
-        </main>
-      )
-    }
     return (
-      <main className='main'>
+      <main className="main">
         <Sidebar
           totalCards={this.state.numTerms}
           numRemaining={this.state.remaining.length}
           numCorrect={this.state.correct.length}
           numIncorrect={this.state.incorrect.length}
         />
+      {this.state.messages.length ?
+        <Message
+          messages={this.state.messages}
+          handleClick={this.restart}
+          type={this.getType()}
+        />
+        :
         <Flashcard
           handleAnswer={this.handleAnswer}
           vocab={this.state.remaining}
         />
+
+      }
       </main>
-    );
+    )
   }
 }
 

@@ -21570,10 +21570,9 @@
 	      if (remaining.length === 1) {
 
 	        if (newCorrect.length === numTerms) {
-	          console.log('EVERYTHING RIGHTT');
+
 	          this.state.gameCompleted = true;
 	        }
-	        //add incorrect to remaining and display some UX indicator
 
 	        var numCorrect = newCorrect.length;
 	        messages.push('You have gotten ' + numCorrect + ' out of ' + this.state.numTerms + ' correct');
@@ -21594,7 +21593,6 @@
 	          messages: messages
 	        });
 	      }
-	      console.log('answer handlled');
 	    }
 	  }, {
 	    key: 'restart',
@@ -21606,7 +21604,7 @@
 	  }, {
 	    key: 'getType',
 	    value: function getType() {
-	      console.log(this.state.remaining.length);
+
 	      if (this.state.gameCompleted) return 'restart';
 	      if (this.state.remaining.length === this.state.numTerms) return 'continue to next round';
 	      return 'continue';
@@ -21614,25 +21612,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.state.messages.length) {
-	        //const type = this.state.gameCompleted ? 'restart' : 'continue'
-	        var type = this.getType();
-	        return _react2.default.createElement(
-	          'main',
-	          { className: 'main' },
-	          _react2.default.createElement(_Sidebar2.default, {
-	            totalCards: this.state.numTerms,
-	            numRemaining: this.state.remaining.length,
-	            numCorrect: this.state.correct.length,
-	            numIncorrect: this.state.incorrect.length
-	          }),
-	          _react2.default.createElement(_Message2.default, {
-	            messages: this.state.messages,
-	            handleClick: this.restart,
-	            type: type
-	          })
-	        );
-	      }
 	      return _react2.default.createElement(
 	        'main',
 	        { className: 'main' },
@@ -21642,7 +21621,11 @@
 	          numCorrect: this.state.correct.length,
 	          numIncorrect: this.state.incorrect.length
 	        }),
-	        _react2.default.createElement(_Flashcard2.default, {
+	        this.state.messages.length ? _react2.default.createElement(_Message2.default, {
+	          messages: this.state.messages,
+	          handleClick: this.restart,
+	          type: this.getType()
+	        }) : _react2.default.createElement(_Flashcard2.default, {
 	          handleAnswer: this.handleAnswer,
 	          vocab: this.state.remaining
 	        })
