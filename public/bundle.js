@@ -21851,7 +21851,8 @@
 	    }
 	  }, {
 	    key: 'handleSubmit',
-	    value: function handleSubmit() {
+	    value: function handleSubmit(e) {
+	      e.preventDefault();
 	      this.props.handleAnswer(this.state.inputValue);
 	      this.setState({
 	        inputValue: ''
@@ -21869,15 +21870,15 @@
 	          this.props.vocab[0].term
 	        ),
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'answer' },
-	          _react2.default.createElement('input', { type: 'text',
+	          'form',
+	          { className: 'answer', onSubmit: this.handleSubmit },
+	          _react2.default.createElement('input', { type: 'number',
 	            value: this.state.inputValue,
 	            onChange: this.handleInput
 	          }),
 	          _react2.default.createElement(
 	            'button',
-	            { className: 'btn', onClick: this.handleSubmit },
+	            { className: 'btn', type: 'submit' },
 	            'Answer'
 	          )
 	        ),

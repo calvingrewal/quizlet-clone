@@ -15,7 +15,8 @@ class Flashcard extends Component {
       inputValue: e.target.value
     })
   }
-  handleSubmit() {
+  handleSubmit(e) {
+    e.preventDefault()
     this.props.handleAnswer(this.state.inputValue)
     this.setState({
       inputValue:''
@@ -25,13 +26,13 @@ class Flashcard extends Component {
     return (
       <div className='flashcard'>
         <h3>{this.props.vocab[0].term}</h3>
-        <div className="answer">
-          <input type="text"
+        <form className="answer" onSubmit={this.handleSubmit}>
+          <input type="number"
             value={this.state.inputValue}
             onChange={this.handleInput}
           />
-        <button className='btn' onClick={this.handleSubmit}>Answer</button>
-        </div>
+          <button className='btn' type='submit'>Answer</button>
+        </form>
         <small>Type the answer</small>
 
       </div>
